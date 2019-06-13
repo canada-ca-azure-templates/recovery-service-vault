@@ -28,7 +28,7 @@
                         "value": "[if(contains(parameters('vaultName'), '[unique]'), replace(parameters('vaultName'), '[unique]', uniqueString(resourceGroup().id)), parameters('vaultName'))]"
                     }
                 },
-                "getValidKeyvaultName": {
+                "getValidVaultName": {
                     "parameters": [
                         {
                             "name": "vaultName",
