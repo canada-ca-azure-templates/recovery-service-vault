@@ -51,3 +51,4 @@ In the vault properties you need to upgrade the vm backup stack to v2 to support
 |Date       |Release| Change                |
 |-----------|-------|-----------------------|
 | 20190516 | [20190516](https://github.com/canada-ca-azure-templates/recovery-service-vault/tree/20190516) | Created test validation.                                   |
+| 20190617 | [20190617](https://github.com/canada-ca-azure-templates/recovery-service-vault/tree/20190617) | Support for passing in a [unique] tag in the name that will be replaced.                                   |
