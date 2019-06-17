@@ -89,7 +89,9 @@ $provisionningState = (Get-AzureRmResourceGroupDeployment -ResourceGroupName PwS
 if ($provisionningState -eq "Failed") {
     Write-Host  "Test deployment failed..."
 }
-
+else {
+    Write-Host "Deployment succeeded"
+}
 # Cleanup validation resource content
 if (-not $doNotCleanup) {
     Write-Host "Cleanup $templateLibraryName template validation resources...";

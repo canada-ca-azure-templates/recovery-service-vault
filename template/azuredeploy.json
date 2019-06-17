@@ -9,11 +9,44 @@
             "type": "string"
         }
     },
-    "variables": {},
+    "variables": {
+        "backupVaultName": "[pspc.getValidVaultName(pspc.getUniqueVaultName(parameters('backupVaultName')))]"
+    },
+    "functions": [
+        {
+            "namespace": "pspc",
+            "members": {
+                "getUniqueVaultName": {
+                    "parameters": [
+                        {
+                            "name": "vaultName",
+                            "type": "string"
+                        }
+                    ],
+                    "output": {
+                        "type": "string",
+                        "value": "[if(contains(parameters('vaultName'), '[unique]'), replace(parameters('vaultName'), '[unique]', uniqueString(resourceGroup().id)), parameters('vaultName'))]"
+                    }
+                },
+                "getValidVaultName": {
+                    "parameters": [
+                        {
+                            "name": "vaultName",
+                            "type": "string"
+                        }
+                    ],
+                    "output": {
+                        "type": "string",
+                        "value": "[if(greater(length(parameters('vaultName')),24), concat(substring(parameters('vaultName'), 0, 24)), parameters('vaultName'))]"
+                    }
+                }
+            }
+        }
+    ],
     "resources": [
         {
             "apiVersion": "2017-05-10",
-            "name": "BackupVaultAndOrPolicy-vault590-DailyPolicy",
+            "name": "[concat('deploy-',variables('backupVaultName'))]",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
@@ -22,7 +55,7 @@
                     "contentVersion": "1.0.0.0",
                     "resources": [
                         {
-                            "name": "[parameters('backupVaultName')]",
+                            "name": "[variables('backupVaultName')]",
                             "type": "Microsoft.RecoveryServices/vaults",
                             "apiVersion": "2016-06-01",
                             "location": "[resourceGroup().location]",
